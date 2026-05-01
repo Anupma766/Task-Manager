@@ -6,7 +6,7 @@ from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
 from flask_cors import CORS
 from dotenv import load_dotenv
-
+from flask import send_from_directory
 load_dotenv()
 
 db = SQLAlchemy()
@@ -14,6 +14,13 @@ jwt = JWTManager()
 bcrypt = Bcrypt()
 migrate = Migrate()
 
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve(path):
+    build_dir = os.path.join(os.getcwd(), 'build')
+    if path != "" and os.path.exists(os.path.join(build_dir, path)):
+        return send_from_directory(build_dir, path)
+    return send_from_directory(build_dir, 'index.html')
 
 def create_app():
     app = Flask(__name__)
