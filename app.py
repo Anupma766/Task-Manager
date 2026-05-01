@@ -24,15 +24,11 @@ def create_app():
     # Configuration
     db_url = os.getenv("DATABASE_URL")
 
-    db_url = os.getenv("DATABASE_URL")
-
     if not db_url:
-        print("WARNING: DATABASE_URL not found, using fallback")
-        db_url = "sqlite:///app.db"   # fallback so app doesn't crash
+        raise RuntimeError("DATABASE_URL environment variable is not set!")
 
     if db_url.startswith("postgres://"):
         db_url = db_url.replace("postgres://", "postgresql://", 1)
-
     app.config["SQLALCHEMY_DATABASE_URI"] = db_url
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "dev-secret-key")
