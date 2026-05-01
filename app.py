@@ -15,7 +15,11 @@ bcrypt = Bcrypt()
 migrate = Migrate()
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(
+    __name__,
+    static_folder="build/static",
+    static_url_path="/static"
+    )
 
     # Configuration
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
@@ -56,7 +60,7 @@ def create_app():
     @app.route("/", defaults={"path": ""})
     @app.route("/<path:path>")
     def serve(path):
-        build_dir = os.path.join(os.getcwd(), "build")
+        build_dir = os.path.join((app.root_path, "build")
         if path != "" and os.path.exists(os.path.join(build_dir, path)):
             return send_from_directory(build_dir, path)
         return send_from_directory(build_dir, "index.html")

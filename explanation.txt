@@ -1,0 +1,208 @@
+
+TEAM TASK MANAGER – FULL STACK PROJECT
+
+---
+
+## PROJECT OVERVIEW
+
+This project is a full-stack web application designed to help teams manage tasks efficiently. It allows users to create projects, assign tasks, track progress, and collaborate within teams.
+
+The system supports multiple users with role-based access (Admin and Member), ensuring proper control over task and project management.
+
+---
+
+## TECH STACK
+
+Frontend:
+
+* React.js
+* HTML, CSS, JavaScript
+
+Backend:
+
+* Flask (Python)
+* RESTful API architecture
+
+Database:
+
+* PostgreSQL (Railway deployment)
+
+Deployment:
+
+* Railway (Backend + Database)
+* Frontend served via Flask (production build)
+
+---
+
+## FEATURES IMPLEMENTED
+
+1. User Authentication
+
+* User signup and login functionality
+* JWT-based authentication
+* Secure password handling using hashing
+
+2. Project Management
+
+* Create new projects
+* Project creator becomes Admin
+* Admin can add/remove members
+* Members can view assigned projects
+
+3. Task Management
+
+* Create tasks with:
+
+  * Title
+  * Description
+  * Due date
+  * Priority
+* Assign tasks to users
+* Update task status:
+
+  * To Do
+  * In Progress
+  * Done
+
+4. Dashboard
+
+* Total number of tasks
+* Tasks categorized by status
+* Tasks assigned per user
+* Overdue tasks tracking
+
+5. Role-Based Access Control
+   Admin:
+
+* Full control over projects and tasks
+
+Member:
+
+* Can only view and update assigned tasks
+
+---
+
+## DATABASE DESIGN
+
+Entities:
+
+1. Users
+
+   * id
+   * name
+   * email
+   * password
+
+2. Projects
+
+   * id
+   * name
+   * created_by (Admin)
+
+3. Tasks
+
+   * id
+   * title
+   * description
+   * status
+   * priority
+   * due_date
+   * assigned_user
+
+Relationships:
+
+* One user can create multiple projects
+* One project can have multiple users
+* One project can have multiple tasks
+* Each task is assigned to one user
+
+---
+
+## API STRUCTURE (RESTFUL)
+
+Authentication:
+
+* POST /api/auth/signup
+* POST /api/auth/login
+
+Projects:
+
+* GET /api/projects
+* POST /api/projects
+* PUT /api/projects/:id
+* DELETE /api/projects/:id
+
+Tasks:
+
+* GET /api/tasks
+* POST /api/tasks
+* PUT /api/tasks/:id
+* DELETE /api/tasks/:id
+
+Dashboard:
+
+* GET /api/dashboard
+
+---
+
+## VALIDATIONS & ERROR HANDLING
+
+* Input validation for all fields
+* Proper error messages for invalid requests
+* Authentication checks using JWT
+* Role-based authorization
+* Backend exception handling implemented
+
+---
+
+## DEPLOYMENT DETAILS
+
+Backend:
+
+* Hosted on Railway
+* Uses Gunicorn server
+* Connected to PostgreSQL database
+
+Frontend:
+
+* Built using React production build
+* Served via Flask backend
+
+Environment Variables:
+
+* DATABASE_URL
+* JWT_SECRET_KEY
+* SECRET_KEY
+* CORS_ORIGINS
+
+---
+
+## HOW TO RUN LOCALLY
+
+Backend:
+
+1. Navigate to backend folder
+2. Install dependencies:
+   pip install -r requirements.txt
+3. Run server:
+   python run.py
+
+Frontend:
+
+1. Navigate to frontend folder
+2. Install dependencies:
+   npm install
+3. Start:
+   npm start
+
+---
+
+## CONCLUSION
+
+This project demonstrates full-stack development skills including frontend design, backend API development, database integration, authentication, and deployment.
+
+It simulates a real-world team collaboration tool and fulfills all major requirements including RESTful APIs, proper database relationships, validations, and deployment.
+
+---
+
+## END OF DOCUMENT
