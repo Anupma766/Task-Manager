@@ -14,14 +14,6 @@ jwt = JWTManager()
 bcrypt = Bcrypt()
 migrate = Migrate()
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def serve(path):
-    build_dir = os.path.join(os.getcwd(), 'build')
-    if path != "" and os.path.exists(os.path.join(build_dir, path)):
-        return send_from_directory(build_dir, path)
-    return send_from_directory(build_dir, 'index.html')
-
 def create_app():
     app = Flask(__name__)
 
@@ -61,5 +53,12 @@ def create_app():
     @app.route("/health")
     def health():
         return {"status": "ok", "message": "TaskFlow API is running"}
+    @app.route("/", defaults={"path": ""})
+    @app.route("/<path:path>")
+    def serve(path):
+        build_dir = os.path.join(os.getcwd(), "build")
+        if path != "" and os.path.exists(os.path.join(build_dir, path)):
+            return send_from_directory(build_dir, path)
+        return send_from_directory(build_dir, "index.html")
 
     return app
