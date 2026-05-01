@@ -24,8 +24,11 @@ def create_app():
     # Configuration
     db_url = os.getenv("DATABASE_URL")
 
+    db_url = os.getenv("DATABASE_URL")
+
     if not db_url:
-        raise RuntimeError("DATABASE_URL is not set!")
+        print("WARNING: DATABASE_URL not found, using fallback")
+        db_url = "sqlite:///app.db"   # fallback so app doesn't crash
 
     if db_url.startswith("postgres://"):
         db_url = db_url.replace("postgres://", "postgresql://", 1)
