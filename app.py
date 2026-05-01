@@ -60,7 +60,7 @@ def create_app():
     @app.route("/", defaults={"path": ""})
     @app.route("/<path:path>")
     def serve(path):
-        build_dir = os.path.join((app.root_path, "build")
+        build_dir = os.path.join(app.root_path, "build")
         if path != "" and os.path.exists(os.path.join(build_dir, path)):
             return send_from_directory(build_dir, path)
         return send_from_directory(build_dir, "index.html")
